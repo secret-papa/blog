@@ -1,9 +1,13 @@
 import React from "react";
-import { Link } from "gatsby";
+
+import PostCard from "../PostCard";
+import Link from "../../unit/link";
+import "./PostListing.css";
 
 function PostListing({ postEdges }) {
   const postList = [];
   postEdges.forEach((postEdge) => {
+    // console.log(postEdge, 'postEdge')
     postList.push({
       path: postEdge.node.fields.slug,
       tags: postEdge.node.frontmatter.tags,
@@ -16,13 +20,14 @@ function PostListing({ postEdges }) {
   });
 
   return (
-    <div>
+    <div className="post-listing">
       {
-        /* Your post list here. */
         postList.map((post) => (
-          <Link to={post.path} key={post.title}>
-            <h1>{post.title}</h1>
-          </Link>
+          <div className="post-listing__item">
+            <Link to={post.path} key={post.title}>
+              <PostCard />
+            </Link>
+          </div>
         ))
       }
     </div>

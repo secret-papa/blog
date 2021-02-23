@@ -13,7 +13,7 @@ const config = {
   disqusShortname: "", // Disqus shortname.
   dateFromFormat: "YYYY-MM-DD", // Date format used in the frontmatter.
   dateFormat: "DD/MM/YYYY", // Date format for display.
-  postsPerPage: 4, // Amount of posts displayed per listing page.
+  postsPerPage: 0, // Amount of posts displayed per listing page.
   userName: "Lee Seung Ha", // Username to display in the author segment.
   userEmail: "seungha0802@gmail.com", // Email used for RSS feed's author segment
   userTwitter: "", // Optionally renders "Follow Me" in the UserInfo segment.
