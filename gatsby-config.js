@@ -49,8 +49,9 @@ module.exports = {
                 "@pages": path.resolve(__dirname, "src/pages"),
                 "@components": path.resolve(__dirname, "src/components"),
                 "@templates": path.resolve(__dirname, "src/templates"),
+                "@tests": path.resolve(__dirname, "tests"),
               },
-              extensions: ["js"],
+              extensions: ["js", "jsx"],
             },
           },
           {
@@ -159,7 +160,10 @@ module.exports = {
                 description: edge.node.excerpt,
                 url: rssMetadata.site_url + edge.node.fields.slug,
                 guid: rssMetadata.site_url + edge.node.fields.slug,
-                custom_elements: [{ "content:encoded": edge.node.html }, { author: config.userEmail }],
+                custom_elements: [
+                  { "content:encoded": edge.node.html },
+                  { author: config.userEmail },
+                ],
               }));
             },
             query: `

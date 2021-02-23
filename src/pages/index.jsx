@@ -2,25 +2,23 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql } from "gatsby";
 
-import PostListing from "@components/PostListing/PostListing";
 import SEO from "@components/SEO/SEO";
+import { PostList } from "@components";
 import config from "@data/SiteConfig";
 
-function Landing({ data }) {
+const Main = ({ data }) => {
   const postEdges = data.allMarkdownRemark.edges;
 
   return (
-    <div className="landing-container">
-      <div className="posts-container">
-        <Helmet title={config.siteTitle} />
-        <SEO />
-        <PostListing postEdges={postEdges} />
-      </div>
-    </div>
+    <>
+      <SEO />
+      <Helmet title={config.siteTitle} />
+      <PostList postEdges={postEdges} />
+    </>
   );
-}
+};
 
-export default Landing;
+export default Main;
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
@@ -39,6 +37,7 @@ export const pageQuery = graphql`
             tags
             cover
             date
+            description
           }
         }
       }

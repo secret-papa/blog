@@ -1,0 +1,34 @@
+import React from "react";
+import { Global, ThemeProvider, css } from "@emotion/react";
+
+import { Header } from "../components";
+import { resetStyle, theme } from "../styles";
+
+const useStyles = () => ({
+  root: ({ colors: { grey } }) => css`
+    display: flex;
+    flex-direction: column;
+    background: ${grey[100]};
+    min-height: 100vh;
+  `,
+  content: css`
+    margin: 0 auto;
+    width: 110rem;
+  `,
+});
+
+const LayoutTemplate = ({ children }) => {
+  const styles = useStyles();
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Global styles={resetStyle} />
+      <div css={styles.root}>
+        <Header />
+        <div css={styles.content}>{children}</div>
+      </div>
+    </ThemeProvider>
+  );
+};
+
+export default LayoutTemplate;

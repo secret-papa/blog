@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql, Link } from "gatsby";
-import PostListing from "../components/PostListing/PostListing";
+import { PostList } from "../components";
 import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
 import "./listing.css";
@@ -37,7 +37,7 @@ function Listing({ pageContext, data }) {
       <div className="posts-container">
         <Helmet title={config.siteTitle} />
         <SEO />
-        <PostListing postEdges={postEdges} />
+        <PostList postEdges={postEdges} />
       </div>
       {renderPaging()}
     </div>

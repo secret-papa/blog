@@ -1,8 +1,4 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { Global, css } from "@emotion/react";
-
-import config from "@data/SiteConfig";
+import { css } from "@emotion/react";
 
 const resetStyle = css`
   html,
@@ -107,6 +103,10 @@ const resetStyle = css`
   section {
     display: block;
   }
+  html,
+  body {
+    font-size: 62.5%;
+  }
   body {
     line-height: 1;
   }
@@ -131,17 +131,4 @@ const resetStyle = css`
   }
 `;
 
-const Layout = ({ children }) => {
-  return (
-    <>
-      <Helmet>
-        <meta name="description" content={config.siteDescription} />
-        <html lang="ko" />
-      </Helmet>
-      <Global styles={resetStyle} />
-      {children}
-    </>
-  );
-};
-
-export default Layout;
+export default resetStyle;

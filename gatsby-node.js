@@ -44,7 +44,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const tagPage = path.resolve("src/templates/tag.js");
   const categoryPage = path.resolve("src/templates/category.js");
   const listingPage = path.resolve("./src/templates/listing.js");
-  const landingPage = path.resolve("./src/templates/landing.js");
+  const landingPage = path.resolve("./src/pages/index.jsx");
 
   // Get a full list of markdown posts
   const markdownQueryResult = await graphql(`
@@ -60,6 +60,7 @@ exports.createPages = async ({ graphql, actions }) => {
               tags
               category
               date
+              description
             }
           }
         }
