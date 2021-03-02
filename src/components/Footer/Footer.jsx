@@ -19,11 +19,7 @@ function Footer({ config }) {
           <button type="button">Subscribe</button>
         </Link>
         <h4>
-          Based on{" "}
-          <a href="https://github.com/Vagr9K/gatsby-advanced-starter">
-            Gatsby Advanced Starter
-          </a>
-          .
+          Based on <a href="https://github.com/Vagr9K/gatsby-advanced-starter">Gatsby Advanced Starter</a>.
         </h4>
       </div>
     </footer>

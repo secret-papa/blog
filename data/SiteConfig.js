@@ -19,8 +19,7 @@ const config = {
   userTwitter: "", // Optionally renders "Follow Me" in the UserInfo segment.
   userLocation: "Seoul, Republic of korea", // User location to display in the author segment.
   userAvatar: "", // User avatar to display in the author segment.
-  userDescription:
-    "", // User description to display in the author segment.
+  userDescription: "", // User description to display in the author segment.
   // Links to social profiles/projects you want to display in the author segment/navigation bar.
   userLinks: [
     {
@@ -50,11 +49,9 @@ if (config.pathPrefix === "/") {
 }
 
 // Make sure siteUrl doesn't have an ending forward slash
-if (config.siteUrl.substr(-1) === "/")
-  config.siteUrl = config.siteUrl.slice(0, -1);
+if (config.siteUrl.substr(-1) === "/") config.siteUrl = config.siteUrl.slice(0, -1);
 
 // Make sure siteRss has a starting forward slash
-if (config.siteRss && config.siteRss[0] !== "/")
-  config.siteRss = `/${config.siteRss}`;
+if (config.siteRss && config.siteRss[0] !== "/") config.siteRss = `/${config.siteRss}`;
 
 module.exports = config;

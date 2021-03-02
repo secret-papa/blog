@@ -21,10 +21,7 @@ function Listing({ pageContext, data }) {
         {[...Array(pageCount)].map((_val, index) => {
           const pageNum = index + 1;
           return (
-            <Link
-              key={`listing-page-${pageNum}`}
-              to={pageNum === 1 ? "/" : `/${pageNum}/`}
-            >
+            <Link key={`listing-page-${pageNum}`} to={pageNum === 1 ? "/" : `/${pageNum}/`}>
               {pageNum}
             </Link>
           );
@@ -55,11 +52,7 @@ export default Listing;
 /* eslint no-undef: "off" */
 export const listingQuery = graphql`
   query ListingQuery($skip: Int!, $limit: Int!) {
-    allMarkdownRemark(
-      sort: { fields: [fields___date], order: DESC }
-      limit: $limit
-      skip: $skip
-    ) {
+    allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: $limit, skip: $skip) {
       edges {
         node {
           fields {

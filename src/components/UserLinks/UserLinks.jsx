@@ -5,7 +5,7 @@ function UserLinks({ config, labeled }) {
   function getLinkElements() {
     const { userLinks } = config;
 
-    return userLinks.map((link) => (
+    return userLinks.map(link => (
       <a href={link.url} key={link.label}>
         <button type="button">{labeled ? link.label : ""}</button>
       </a>
