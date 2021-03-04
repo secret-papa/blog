@@ -4,7 +4,6 @@ const config = require("./data/SiteConfig");
 
 // Make sure that pathPrefix is not empty
 const validatedPathPrefix = config.pathPrefix === "" ? "/" : config.pathPrefix;
-
 module.exports = {
   pathPrefix: validatedPathPrefix,
   siteMetadata: {
@@ -14,14 +13,12 @@ module.exports = {
       feed_url: urljoin(config.siteUrl, config.pathPrefix, config.siteRss),
       title: config.siteTitle,
       description: config.siteDescription,
-      image_url: `${urljoin(
-        config.siteUrl,
-        config.pathPrefix
-      )}/logos/logo-512.png`,
+      image_url: `${urljoin(config.siteUrl, config.pathPrefix)}/logos/logo-512.png`,
       copyright: config.copyright,
     },
   },
   plugins: [
+    "gatsby-plugin-emotion",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-lodash",
     {
@@ -42,6 +39,20 @@ module.exports = {
       resolve: "gatsby-transformer-remark",
       options: {
         plugins: [
+          {
+            resolve: "gatsby-plugin-alias-imports",
+            options: {
+              alias: {
+                "@src": path.resolve(__dirname, "src"),
+                "@data": path.resolve(__dirname, "data"),
+                "@static": path.resolve(__dirname, "static"),
+                "@pages": path.resolve(__dirname, "src/pages"),
+                "@components": path.resolve(__dirname, "src/components"),
+                "@templates": path.resolve(__dirname, "src/templates"),
+              },
+              extensions: ["js"],
+            },
+          },
           {
             resolve: `gatsby-remark-relative-images`,
           },
@@ -141,17 +152,14 @@ module.exports = {
           {
             serialize(ctx) {
               const { rssMetadata } = ctx.query.site.siteMetadata;
-              return ctx.query.allMarkdownRemark.edges.map((edge) => ({
+              return ctx.query.allMarkdownRemark.edges.map(edge => ({
                 categories: edge.node.frontmatter.tags,
                 date: edge.node.fields.date,
                 title: edge.node.frontmatter.title,
                 description: edge.node.excerpt,
                 url: rssMetadata.site_url + edge.node.fields.slug,
                 guid: rssMetadata.site_url + edge.node.fields.slug,
-                custom_elements: [
-                  { "content:encoded": edge.node.html },
-                  { author: config.userEmail },
-                ],
+                custom_elements: [{ "content:encoded": edge.node.html }, { author: config.userEmail }],
               }));
             },
             query: `

@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql } from "gatsby";
-import Layout from "../layout";
 import UserInfo from "../components/UserInfo/UserInfo";
 import Disqus from "../components/Disqus/Disqus";
 import PostTags from "../components/PostTags/PostTags";
@@ -21,26 +20,24 @@ export default function PostTemplate({ data, pageContext }) {
   }
 
   return (
-    <Layout>
+    <div>
+      <Helmet>
+        <title>{`${post.title} | ${config.siteTitle}`}</title>
+      </Helmet>
+      <SEO postPath={slug} postNode={postNode} postSEO />
       <div>
-        <Helmet>
-          <title>{`${post.title} | ${config.siteTitle}`}</title>
-        </Helmet>
-        <SEO postPath={slug} postNode={postNode} postSEO />
-        <div>
-          <h1>{post.title}</h1>
-          {/* eslint-disable-next-line react/no-danger */}
-          <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
-          <div className="post-meta">
-            <PostTags tags={post.tags} />
-            <SocialLinks postPath={slug} postNode={postNode} />
-          </div>
-          <UserInfo config={config} />
-          <Disqus postNode={postNode} />
-          <Footer config={config} />
+        <h1>{post.title}</h1>
+        {/* eslint-disable-next-line react/no-danger */}
+        <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
+        <div className="post-meta">
+          <PostTags tags={post.tags} />
+          <SocialLinks postPath={slug} postNode={postNode} />
         </div>
+        <UserInfo config={config} />
+        <Disqus postNode={postNode} />
+        <Footer config={config} />
       </div>
-    </Layout>
+    </div>
   );
 }
 

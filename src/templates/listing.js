@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql, Link } from "gatsby";
-import Layout from "../layout";
 import PostListing from "../components/PostListing/PostListing";
 import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
@@ -21,10 +20,7 @@ function Listing({ pageContext, data }) {
         {[...Array(pageCount)].map((_val, index) => {
           const pageNum = index + 1;
           return (
-            <Link
-              key={`listing-page-${pageNum}`}
-              to={pageNum === 1 ? "/" : `/${pageNum}/`}
-            >
+            <Link key={`listing-page-${pageNum}`} to={pageNum === 1 ? "/" : `/${pageNum}/`}>
               {pageNum}
             </Link>
           );
@@ -37,16 +33,14 @@ function Listing({ pageContext, data }) {
   const postEdges = data.allMarkdownRemark.edges;
 
   return (
-    <Layout>
-      <div className="listing-container">
-        <div className="posts-container">
-          <Helmet title={config.siteTitle} />
-          <SEO />
-          <PostListing postEdges={postEdges} />
-        </div>
-        {renderPaging()}
+    <div className="listing-container">
+      <div className="posts-container">
+        <Helmet title={config.siteTitle} />
+        <SEO />
+        <PostListing postEdges={postEdges} />
       </div>
-    </Layout>
+      {renderPaging()}
+    </div>
   );
 }
 
@@ -55,11 +49,7 @@ export default Listing;
 /* eslint no-undef: "off" */
 export const listingQuery = graphql`
   query ListingQuery($skip: Int!, $limit: Int!) {
-    allMarkdownRemark(
-      sort: { fields: [fields___date], order: DESC }
-      limit: $limit
-      skip: $skip
-    ) {
+    allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: $limit, skip: $skip) {
       edges {
         node {
           fields {

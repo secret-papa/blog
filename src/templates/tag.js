@@ -1,32 +1,29 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql } from "gatsby";
-import Layout from "../layout";
 import PostListing from "../components/PostListing/PostListing";
-import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
 
-function Landing({ data }) {
+export default function TagTemplate({ pageContext, data }) {
+  const { tag } = pageContext;
   const postEdges = data.allMarkdownRemark.edges;
   return (
-    <Layout>
-      <div className="landing-container">
-        <div className="posts-container">
-          <Helmet title={config.siteTitle} />
-          <SEO />
-          <PostListing postEdges={postEdges} />
-        </div>
-      </div>
-    </Layout>
+    <div className="tag-container">
+      <Helmet title={`Posts tagged as "${tag}" | ${config.siteTitle}`} />
+      <PostListing postEdges={postEdges} />
+    </div>
   );
 }
 
-export default Landing;
-
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
-  query LandingQuery {
-    allMarkdownRemark(sort: { fields: [fields___date], order: DESC }) {
+  query TagPage($tag: String) {
+    allMarkdownRemark(
+      limit: 1000
+      sort: { fields: [fields___date], order: DESC }
+      filter: { frontmatter: { tags: { in: [$tag] } } }
+    ) {
+      totalCount
       edges {
         node {
           fields {

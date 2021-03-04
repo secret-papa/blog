@@ -29,8 +29,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         slug = `/${_.kebabCase(node.frontmatter.slug)}`;
       if (Object.prototype.hasOwnProperty.call(node.frontmatter, "date")) {
         const date = moment(node.frontmatter.date, siteConfig.dateFromFormat);
-        if (!date.isValid)
-          console.warn(`WARNING: Invalid date.`, node.frontmatter);
+        if (!date.isValid) console.warn(`WARNING: Invalid date.`, node.frontmatter);
 
         createNodeField({ node, name: "date", value: date.toISOString() });
       }
@@ -41,11 +40,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const postPage = path.resolve("src/templates/post.jsx");
-  const tagPage = path.resolve("src/templates/tag.jsx");
-  const categoryPage = path.resolve("src/templates/category.jsx");
-  const listingPage = path.resolve("./src/templates/listing.jsx");
-  const landingPage = path.resolve("./src/templates/landing.jsx");
+  const postPage = path.resolve("src/templates/post.js");
+  const tagPage = path.resolve("src/templates/tag.js");
+  const categoryPage = path.resolve("src/templates/category.js");
+  const listingPage = path.resolve("./src/templates/listing.js");
+  const landingPage = path.resolve("./src/templates/landing.js");
 
   // Get a full list of markdown posts
   const markdownQueryResult = await graphql(`
@@ -80,15 +79,9 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Sort posts
   postsEdges.sort((postA, postB) => {
-    const dateA = moment(
-      postA.node.frontmatter.date,
-      siteConfig.dateFromFormat
-    );
+    const dateA = moment(postA.node.frontmatter.date, siteConfig.dateFromFormat);
 
-    const dateB = moment(
-      postB.node.frontmatter.date,
-      siteConfig.dateFromFormat
-    );
+    const dateB = moment(postB.node.frontmatter.date, siteConfig.dateFromFormat);
 
     if (dateA.isBefore(dateB)) return 1;
     if (dateB.isBefore(dateA)) return -1;
@@ -125,7 +118,7 @@ exports.createPages = async ({ graphql, actions }) => {
   postsEdges.forEach((edge, index) => {
     // Generate a list of tags
     if (edge.node.frontmatter.tags) {
-      edge.node.frontmatter.tags.forEach((tag) => {
+      edge.node.frontmatter.tags.forEach(tag => {
         tagSet.add(tag);
       });
     }
@@ -155,7 +148,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   //  Create tag pages
-  tagSet.forEach((tag) => {
+  tagSet.forEach(tag => {
     createPage({
       path: `/tags/${_.kebabCase(tag)}/`,
       component: tagPage,
@@ -164,7 +157,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   // Create category pages
-  categorySet.forEach((category) => {
+  categorySet.forEach(category => {
     createPage({
       path: `/categories/${_.kebabCase(category)}/`,
       component: categoryPage,
