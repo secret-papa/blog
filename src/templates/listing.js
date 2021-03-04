@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql, Link } from "gatsby";
-import Layout from "../layout";
 import PostListing from "../components/PostListing/PostListing";
 import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
@@ -34,16 +33,14 @@ function Listing({ pageContext, data }) {
   const postEdges = data.allMarkdownRemark.edges;
 
   return (
-    <Layout>
-      <div className="listing-container">
-        <div className="posts-container">
-          <Helmet title={config.siteTitle} />
-          <SEO />
-          <PostListing postEdges={postEdges} />
-        </div>
-        {renderPaging()}
+    <div className="listing-container">
+      <div className="posts-container">
+        <Helmet title={config.siteTitle} />
+        <SEO />
+        <PostListing postEdges={postEdges} />
       </div>
-    </Layout>
+      {renderPaging()}
+    </div>
   );
 }
 
