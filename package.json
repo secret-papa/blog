@@ -44,6 +44,12 @@
     "url-join": "^4.0.0"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.2.0",
+    "@emotion/jest": "^11.2.1",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.5",
+    "babel-jest": "^26.6.3",
+    "babel-preset-gatsby": "^1.1.0",
     "cli-glob": "^0.1.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -55,7 +61,10 @@
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
     "prettier": "^2.1.2",
+    "react-test-renderer": "^17.0.2",
     "remark-cli": "^9.0.0",
     "remark-preset-lint-recommended": "^5.0.0",
     "stylelint": "^13.8.0",
@@ -82,7 +91,8 @@
     "lint:md": "remark content/",
     "write-good": "write-good $(glob 'content/posts/**/*.md')",
     "format:js": "prettier '**/*.{js,jsx}' --write",
-    "format:styles": "prettier '**/*.{css,scss}' --write"
+    "format:styles": "prettier '**/*.{css,scss}' --write",
+    "test": "jest"
   },
   "remarkConfig": {
     "plugins": [
