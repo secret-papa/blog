@@ -6,7 +6,8 @@
       "@data/*": ["data/*"],
       "@pages/*": ["src/pages/*"],
       "@components/*": ["src/components/*"],
-      "@templates/*": ["src/templates/*"]
+      "@templates/*": ["src/templates/*"],
+      "@tests/*": ["tests/*"]
     }
   }
 }

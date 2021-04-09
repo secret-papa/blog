@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Logo /> should show correctly 1`] = `
+.emotion-0 {
+  color: #757575;
+  font: bold 3.2rem/1 sans-serif;
+  font-family: inherit;
+}
+
+<div>
+  <h1
+    class="emotion-0"
+  >
+    :D
+  </h1>
+</div>
+`;

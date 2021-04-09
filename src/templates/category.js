@@ -1,16 +1,14 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql } from "gatsby";
-import PostListing from "../components/PostListing/PostListing";
 import config from "../../data/SiteConfig";
 
-export default function CategoryTemplate({ pageContext, data }) {
+export default function CategoryTemplate({ pageContext }) {
   const { category } = pageContext;
-  const postEdges = data.allMarkdownRemark.edges;
+
   return (
     <div className="category-container">
       <Helmet title={`Posts in category "${category}" | ${config.siteTitle}`} />
-      <PostListing postEdges={postEdges} />
     </div>
   );
 }

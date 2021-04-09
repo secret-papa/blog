@@ -1,5 +1,5 @@
 {
-  "plugins": ["@emotion", "@babel/plugin-transform-react-jsx"],
+  "plugins": ["@emotion"],
   "presets": [
     [
       "babel-preset-gatsby",
