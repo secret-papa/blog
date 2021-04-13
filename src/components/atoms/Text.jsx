@@ -44,7 +44,7 @@ const makeStyles = ({ bold, color, font }) => ({
   `,
 });
 
-const Text = ({ bold, component, color, children, variant, customStyle }) => {
+const Text = ({ bold, component, color, children, variant, customStyle, className }) => {
   const Component = component || "span";
   const theme = useTheme();
   const styles = makeStyles({
@@ -53,7 +53,11 @@ const Text = ({ bold, component, color, children, variant, customStyle }) => {
     font: getFontStylePerVariant(variant, theme.font),
   });
 
-  return <Component css={[styles.root, customStyle]}>{children}</Component>;
+  return (
+    <Component css={[styles.root, customStyle]} className={className}>
+      {children}
+    </Component>
+  );
 };
 
 Text.defaultProps = {
@@ -63,6 +67,7 @@ Text.defaultProps = {
   children: "",
   variant: "body1",
   customStyle: null,
+  className: "",
 };
 
 Text.propTypes = {
@@ -81,6 +86,7 @@ Text.propTypes = {
     }),
     PropTypes.func,
   ]),
+  className: PropTypes.string,
 };
 
 export default Text;

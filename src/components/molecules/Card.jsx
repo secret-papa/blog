@@ -79,6 +79,7 @@ const Card = ({ cover, date, description, path, title, timeToRead }) => {
 
 Card.defaultProps = {
   description: "",
+  timeToRead: 0,
 };
 
 Card.propTypes = {
@@ -87,7 +88,7 @@ Card.propTypes = {
   cover: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  timeToRead: PropTypes.number.isRequired,
+  timeToRead: PropTypes.number,
 };
 
 export default Card;

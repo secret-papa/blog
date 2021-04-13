@@ -40,7 +40,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const postPage = path.resolve("src/templates/post.js");
+  const postPage = path.resolve("src/pages/postDetail.jsx");
   const tagPage = path.resolve("src/templates/tag.js");
   const categoryPage = path.resolve("src/templates/category.js");
   const listingPage = path.resolve("./src/templates/listing.js");
