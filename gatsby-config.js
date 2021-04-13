@@ -36,22 +36,29 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-alias-imports",
+      options: {
+        alias: {
+          "@src": path.resolve(__dirname, "src"),
+          "@data": path.resolve(__dirname, "data"),
+          "@static": path.resolve(__dirname, "static"),
+          "@pages": path.resolve(__dirname, "src/pages"),
+          "@components": path.resolve(__dirname, "src/components"),
+          "@templates": path.resolve(__dirname, "src/templates"),
+          "@tests": path.resolve(__dirname, "tests"),
+        },
+        extensions: ["js", "jsx"],
+      },
+    },
+    {
       resolve: "gatsby-transformer-remark",
       options: {
         plugins: [
           {
-            resolve: "gatsby-plugin-alias-imports",
+            resolve: "gatsby-remark-highlight-code",
             options: {
-              alias: {
-                "@src": path.resolve(__dirname, "src"),
-                "@data": path.resolve(__dirname, "data"),
-                "@static": path.resolve(__dirname, "static"),
-                "@pages": path.resolve(__dirname, "src/pages"),
-                "@components": path.resolve(__dirname, "src/components"),
-                "@templates": path.resolve(__dirname, "src/templates"),
-                "@tests": path.resolve(__dirname, "tests"),
-              },
-              extensions: ["js", "jsx"],
+              // terminal: "none",
+              theme: "one-dark",
             },
           },
           {

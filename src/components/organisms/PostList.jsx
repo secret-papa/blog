@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import Card from "../molecules";
+import { Card } from "../molecules";
 
 const makeStyles = () => ({
   root: ({ spacing }) => css`
