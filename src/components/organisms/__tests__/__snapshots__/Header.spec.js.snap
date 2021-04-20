@@ -23,6 +23,12 @@ exports[`<Header /> should render correctly 1`] = `
 }
 
 .emotion-3 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.emotion-5 {
   color: #757575;
   font: bold 3.2rem/1 sans-serif;
   font-family: inherit;
@@ -38,11 +44,16 @@ exports[`<Header /> should render correctly 1`] = `
       <div
         class="emotion-2"
       >
-        <h1
-          class="emotion-3"
+        <a
+          class="emotion-3 emotion-4"
+          href="/"
         >
-          :D
-        </h1>
+          <h1
+            class=" emotion-5"
+          >
+            :D
+          </h1>
+        </a>
       </div>
     </div>
   </header>

@@ -23,7 +23,7 @@ describe("<PostList />", () => {
     let postEdges;
 
     beforeEach(() => {
-      postEdges = postEdgeFactory.buildList(faker.datatype.number({ max: 10 }));
+      postEdges = postEdgeFactory.buildList(faker.datatype.number({ min: 1, max: 10 }));
     });
 
     it("should show post card as long as number of post", () => {

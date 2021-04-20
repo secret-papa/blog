@@ -108,7 +108,7 @@ exports[`<Card /> should show correctly 1`] = `
         class="emotion-5"
       >
         <p
-          class="emotion-6"
+          class=" emotion-6"
         >
           Card title
         </p>
@@ -116,14 +116,14 @@ exports[`<Card /> should show correctly 1`] = `
           class="emotion-7"
         >
           <span
-            class="emotion-8"
+            class=" emotion-8"
           >
             blah blah
           </span>
         </div>
         <div>
           <span
-            class="emotion-9"
+            class=" emotion-9"
           >
             xxxx-xx-xx
              · ☕️ ️

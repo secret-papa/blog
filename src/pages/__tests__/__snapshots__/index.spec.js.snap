@@ -129,7 +129,7 @@ exports[`<Main /> should show correctly 1`] = `
             class="emotion-7"
           >
             <p
-              class="emotion-8"
+              class=" emotion-8"
             >
               post
             </p>
@@ -137,14 +137,14 @@ exports[`<Main /> should show correctly 1`] = `
               class="emotion-9"
             >
               <span
-                class="emotion-10"
+                class=" emotion-10"
               >
                 blahblahblahblahblah
               </span>
             </div>
             <div>
               <span
-                class="emotion-11"
+                class=" emotion-11"
               >
                 2093-05-10
                  · ☕️ ️
