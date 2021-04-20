@@ -35,6 +35,12 @@ exports[`<LayoutTemplate /> should show correctly 1`] = `
 }
 
 .emotion-4 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.emotion-6 {
   color: #757575;
   font: bold 3.2rem/1 sans-serif;
   font-family: inherit;
@@ -53,11 +59,16 @@ exports[`<LayoutTemplate /> should show correctly 1`] = `
         <div
           class="emotion-3"
         >
-          <h1
-            class="emotion-4"
+          <a
+            class="emotion-4 emotion-5"
+            href="/"
           >
-            :D
-          </h1>
+            <h1
+              class=" emotion-6"
+            >
+              :D
+            </h1>
+          </a>
         </div>
       </div>
     </header>
