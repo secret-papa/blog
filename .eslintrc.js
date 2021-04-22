@@ -16,7 +16,13 @@ module.exports = {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        devDependencies: ["**/*.test.js", "**/*.spec.js", "tests/**"],
+        devDependencies: [
+          "**/*.test.js",
+          "**/*.spec.js",
+          "**/*.test.jsx",
+          "**/*.spec.jsx",
+          "tests/**",
+        ],
       },
     ],
   },
