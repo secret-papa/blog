@@ -75,7 +75,7 @@ Text.propTypes = {
   color: PropTypes.oneOf(["darkGray", "gray", "lightGray", "lightGray2", "white"]),
   component: PropTypes.elementType,
   children: PropTypes.node,
-  variant: PropTypes.oneOf(["title1", "title3", "body1", "body2"]),
+  variant: PropTypes.oneOf(["title1", "title3", "body1", "body2", "body3"]),
   customStyle: PropTypes.oneOfType([
     PropTypes.shape({
       map: PropTypes.string,

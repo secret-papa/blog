@@ -1,7 +1,7 @@
 import React from "react";
 import { Global, ThemeProvider, css } from "@emotion/react";
 
-import { Header } from "../components";
+import { Header, Footer } from "../components";
 import { resetStyle, theme } from "../styles";
 
 const useStyles = () => ({
@@ -26,6 +26,7 @@ const LayoutTemplate = ({ children }) => {
       <div css={styles.root}>
         <Header />
         <div css={styles.content}>{children}</div>
+        <Footer />
       </div>
     </ThemeProvider>
   );
