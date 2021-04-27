@@ -9,9 +9,6 @@ import { Text } from "../atoms";
 deckDeckGoHighlightElement();
 
 const useStyles = () => ({
-  root: ({ spacing }) => css`
-    margin: ${spacing(5)}rem 0;
-  `,
   header: ({ spacing }) => css`
     margin-bottom: ${spacing(4)}rem;
   `,
@@ -42,7 +39,7 @@ const PostDetail = ({ title, date, content }) => {
   const styles = useStyles();
 
   return (
-    <div css={styles.root}>
+    <div>
       <div css={styles.header}>
         <Text bold color="darkGray" component="h1" css={styles.title} variant="title1">
           {title}

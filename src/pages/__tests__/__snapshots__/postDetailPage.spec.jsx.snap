@@ -39,31 +39,116 @@ exports[`<PostDetailPage /> should show correctly 1`] = `
   border-left: 0.25em solid #6bb0fa;
 }
 
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+}
+
+.emotion-7 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.emotion-9 {
+  color: #BDBDBD;
+  font: normal 1.4rem/1.4 sans-serif;
+  font-family: inherit;
+  margin-right: 1.2rem;
+}
+
+.emotion-10 {
+  color: #757575;
+  font: normal 1.6rem/1 sans-serif;
+  font-family: inherit;
+}
+
+.emotion-11 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  margin-left: auto;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
 <div>
   <div>
-    <div
-      class="emotion-0"
-    >
+    <div>
       <div
-        class="emotion-1"
+        class="emotion-0"
       >
-        <h1
-          class="emotion-2"
-        >
-          xxxxx
-        </h1>
-        <span
-          class=" emotion-3"
-        >
-          2093-05-10
-        </span>
+        <div>
+          <div
+            class="emotion-1"
+          >
+            <h1
+              class="emotion-2"
+            >
+              xxxxx
+            </h1>
+            <span
+              class=" emotion-3"
+            >
+              2093-05-10
+            </span>
+          </div>
+          <div
+            class="markdown-body emotion-4"
+          >
+            <p>
+              blahblahblahblahblah
+            </p>
+          </div>
+        </div>
       </div>
       <div
-        class="markdown-body emotion-4"
+        class="emotion-5"
       >
-        <p>
-          blahblahblahblahblah
-        </p>
+        <div
+          class="emotion-6"
+        >
+          <a
+            class="emotion-7 emotion-8"
+            data-testid="prev_link"
+            href="/prev"
+          >
+            <span
+              class="emotion-9"
+            >
+              이전 글
+            </span>
+            <span
+              class=" emotion-10"
+            >
+              prev
+            </span>
+          </a>
+          <a
+            class="emotion-11 emotion-8"
+            data-testid="next_link"
+            href="/next"
+          >
+            <span
+              class="emotion-9"
+            >
+              다음 글
+            </span>
+            <span
+              class=" emotion-10"
+            >
+              next
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

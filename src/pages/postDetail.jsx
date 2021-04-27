@@ -2,12 +2,13 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { graphql } from "gatsby";
 
-import { PostDetail } from "@components/molecules";
+import { PostDetail, SimplePagination } from "@components/molecules";
+import { PostDetailTemplate } from "@templates";
 import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
 
 export default function PostDetailPage({ data, pageContext }) {
-  const { slug } = pageContext;
+  const { slug, nextslug, nexttitle, prevslug, prevtitle } = pageContext;
   const postNode = data.markdownRemark;
   const post = postNode.frontmatter;
   if (!post.id) {
@@ -20,7 +21,15 @@ export default function PostDetailPage({ data, pageContext }) {
         <title>{`${post.title} | ${config.siteTitle}`}</title>
       </Helmet>
       <SEO postPath={slug} postNode={postNode} postSEO />
-      <PostDetail title={post.title} date={post.date} content={postNode.html} />
+      <PostDetailTemplate
+        renderPost={<PostDetail title={post.title} date={post.date} content={postNode.html} />}
+        renderPagination={
+          <SimplePagination
+            next={{ slug: nextslug, title: nexttitle }}
+            prev={{ slug: prevslug, title: prevtitle }}
+          />
+        }
+      />
     </div>
   );
 }
