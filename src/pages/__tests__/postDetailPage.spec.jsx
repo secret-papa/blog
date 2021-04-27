@@ -1,6 +1,6 @@
 import React from "react";
 
-import { postEdgeFactory, postEdgeNodeFactory, renderWithTheme, getFormatDate } from "@tests";
+import { renderWithTheme, getFormatDate } from "@tests";
 import { theme } from "@src/styles";
 import PostDetailPage from "../postDetail";
 
@@ -12,7 +12,13 @@ describe("<PostDetailPage />", () => {
     const date = new Date("Sun May 10 2093 00:50:56 GMT+0900 (대한민국 표준시)");
     const formatDate = getFormatDate(date);
 
-    pageContext = { slug: "dkixcvlkjsd" };
+    pageContext = {
+      slug: "dkixcvlkjsd",
+      nextslug: "/next",
+      nexttitle: "next",
+      prevslug: "/prev",
+      prevtitle: "prev",
+    };
     data = {
       markdownRemark: {
         frontmatter: {

@@ -17,11 +17,12 @@ describe("<SimplePagination />", () => {
     });
 
     it("should show prev link", () => {
-      const { getByText } = renderWithTheme(<SimplePagination prev={prev} />, theme);
-      const prevLinkEl = getByText(prev.title);
+      const { getByText, getByTestId } = renderWithTheme(<SimplePagination prev={prev} />, theme);
+      const prevLinkEl = getByTestId("prev_link");
+      const prevLinkTitleEl = getByText(prev.title);
 
-      expect(prevLinkEl).toBeInTheDocument();
       expect(prevLinkEl).toHaveAttribute("href", prev.slug);
+      expect(prevLinkTitleEl).toBeInTheDocument();
     });
   });
 
@@ -46,11 +47,12 @@ describe("<SimplePagination />", () => {
     });
 
     it("should show next link", () => {
-      const { getByText } = renderWithTheme(<SimplePagination next={next} />, theme);
-      const prevLinkEl = getByText(next.title);
+      const { getByText, getByTestId } = renderWithTheme(<SimplePagination next={next} />, theme);
+      const nextLink = getByTestId("next_link");
+      const nextLinkTitleEl = getByText(next.title);
 
-      expect(prevLinkEl).toBeInTheDocument();
-      expect(prevLinkEl).toHaveAttribute("href", next.slug);
+      expect(nextLink).toHaveAttribute("href", next.slug);
+      expect(nextLinkTitleEl).toBeInTheDocument();
     });
   });
 
