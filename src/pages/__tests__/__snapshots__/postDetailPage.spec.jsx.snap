@@ -61,7 +61,14 @@ exports[`<PostDetailPage /> should show correctly 1`] = `
   color: #BDBDBD;
   font: normal 1.4rem/1.4 sans-serif;
   font-family: inherit;
+}
+
+.emotion-9.prev_guide_text {
   margin-right: 1.2rem;
+}
+
+.emotion-9.next_guide_text {
+  margin-left: 1.2rem;
 }
 
 .emotion-10 {
@@ -75,9 +82,6 @@ exports[`<PostDetailPage /> should show correctly 1`] = `
   text-decoration: none;
   color: inherit;
   margin-left: auto;
-  -webkit-flex-direction: row-reverse;
-  -ms-flex-direction: row-reverse;
-  flex-direction: row-reverse;
 }
 
 <div>
@@ -122,7 +126,7 @@ exports[`<PostDetailPage /> should show correctly 1`] = `
             href="/prev"
           >
             <span
-              class="emotion-9"
+              class="prev_guide_text emotion-9"
             >
               이전 글
             </span>
@@ -138,14 +142,14 @@ exports[`<PostDetailPage /> should show correctly 1`] = `
             href="/next"
           >
             <span
-              class="emotion-9"
-            >
-              다음 글
-            </span>
-            <span
               class=" emotion-10"
             >
               next
+            </span>
+            <span
+              class="next_guide_text emotion-9"
+            >
+              다음 글
             </span>
           </a>
         </div>

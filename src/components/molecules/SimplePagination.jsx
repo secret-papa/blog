@@ -12,10 +12,15 @@ const useStyles = () => ({
   `,
   nextLink: () => css`
     margin-left: auto;
-    flex-direction: row-reverse;
   `,
-  guidText: ({ spacing }) => css`
-    margin-right: ${spacing(1.5)}rem;
+  guideText: ({ spacing }) => css`
+    &.prev_guide_text {
+      margin-right: ${spacing(1.5)}rem;
+    }
+
+    &.next_guide_text {
+      margin-left: ${spacing(1.5)}rem;
+    }
   `,
 });
 
@@ -26,7 +31,12 @@ const SimplePagination = ({ prev, next }) => {
     <div css={styles.root}>
       {prev && (
         <Link data-testid="prev_link" to={prev.slug}>
-          <Text css={styles.guidText} color="lightGray" variant="body2">
+          <Text
+            css={styles.guideText}
+            className="prev_guide_text"
+            color="lightGray"
+            variant="body2"
+          >
             이전 글
           </Text>
           <Text>{prev.title}</Text>
@@ -34,10 +44,15 @@ const SimplePagination = ({ prev, next }) => {
       )}
       {next && (
         <Link css={styles.nextLink} data-testid="next_link" to={next.slug}>
-          <Text css={styles.guidText} color="lightGray" variant="body2">
+          <Text>{next.title}</Text>
+          <Text
+            css={styles.guideText}
+            className="next_guide_text"
+            color="lightGray"
+            variant="body2"
+          >
             다음 글
           </Text>
-          <Text>{next.title}</Text>
         </Link>
       )}
     </div>
