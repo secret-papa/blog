@@ -32,7 +32,7 @@ export default {
     },
     body3: {
       fontSize: "1.2rem",
-      lineHeight: "1",
+      lineHeight: "1.4",
     },
   },
   spacing: (value = 1) => (value * 8) / 10,
