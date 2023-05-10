@@ -44,8 +44,14 @@ jspm_packages
 # Output of 'npm pack'
 *.tgz
 
-# Yarn Integrity file
-.yarn-integrity
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 
 # Build Files
@@ -60,3 +66,21 @@ bundle-stats.json
 
 # macOS
 .DS_Store
+
+# Local Netlify folder
+.netlify
+
+# TypeScript output
+lib/
+dist/
+
+# Prebuilt packages
+pkgroot/
+
+# TypeScript coverage
+coverage-ts/
+
+# Cypress output
+cypress/screenshots
+cypress/videos
+
