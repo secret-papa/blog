@@ -1,42 +1,117 @@
 module.exports = {
-  parser: "@babel/eslint-parser",
-  globals: {
-    __PATH_PREFIX__: true,
+  ignorePatterns: ["**/public/**", "**/.cache/**", "**/static/**", "**/content/**"],
+  extends: [
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:testing-library/react",
+    "plugin:react-hooks/recommended",
+    "airbnb/hooks",
+    "airbnb",
+  ],
+  plugins: ["import"],
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
   },
-  env: {
-    browser: true,
-    es6: true,
-    jest: true,
-  },
-  extends: ["airbnb", "prettier", "prettier/react", "plugin:react-hooks/recommended"],
-  plugins: ["react", "prettier", "react-hooks"],
   rules: {
-    "react/prop-types": 0,
-    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
-    "import/no-extraneous-dependencies": [
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
+    ],
+    "react/function-component-definition": [
       "error",
       {
-        devDependencies: [
-          "**/*.test.js",
-          "**/*.spec.js",
-          "**/*.test.jsx",
-          "**/*.spec.jsx",
-          "tests/**",
-        ],
+        namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
       },
     ],
   },
-  settings: {
-    "import/resolver": {
-      alias: [
-        ["@src", "./src"],
-        ["@data", "./data"],
-        ["@static", "./static"],
-        ["@pages", "./src/pages"],
-        ["@components", "./src/components"],
-        ["@templates", "./src/templates"],
-        ["@tests", "./tests"],
+  overrides: [
+    {
+      files: ["**/*.ts", "**/*.tsx"],
+      env: {
+        browser: true,
+        es6: true,
+      },
+      extends: [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "airbnb-typescript",
+        "prettier",
       ],
+      plugins: [
+        "@typescript-eslint",
+        "react",
+        "react-hooks",
+
+        "testing-library",
+        "graphql",
+        "prettier",
+      ],
+      rules: {
+        "react/require-default-props": "off",
+        "react/prop-types": "off",
+        "no-restricted-exports": "off",
+      },
+
+      parser: "@typescript-eslint/parser",
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ["./tsconfig.json", "**/tsconfig.json"],
+      },
     },
-  },
+    {
+      files: ["**/*.js", "**/*.jsx"],
+      env: {
+        browser: true,
+        es6: true,
+      },
+      extends: ["prettier"],
+      rules: {},
+      plugins: ["testing-library", "react", "react-hooks", "graphql", "prettier"],
+    },
+    {
+      files: [
+        "**/test/**",
+        "**/__mocks__/**",
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx",
+      ],
+      extends: ["plugin:jest/all", "plugin:jest-dom/recommended"],
+      plugins: ["jest", "jest-dom"],
+      env: {
+        browser: true,
+        es6: true,
+        "jest/globals": true,
+      },
+      rules: {
+        "jest/no-hooks": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "jest/unbound-method": "error",
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            devDependencies: true,
+            optionalDependencies: false,
+            peerDependencies: false,
+          },
+        ],
+        "import/no-relative-packages": "off",
+        "jest/no-conditional-in-test": "off",
+        "jest/prefer-snapshot-hint": "off",
+      },
+    },
+  ],
 };

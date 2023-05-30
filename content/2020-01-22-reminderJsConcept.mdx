@@ -1,0 +1,358 @@
+---
+title: "자바스크립트 개념을 정리해보자!"
+description: "자바스크립트 개념 설명"
+category: "javascript"
+cover: images/thumbnail/js.png
+coverAlt: "Remind javascript concept"
+datePublished: "2017-03-01"
+dateModified: "2017-03-01"
+tags:
+  - tag
+---
+
+# 목차
+
+[this란?](#this란)  
+[호이스팅이란?](#호이스팅이란)  
+[TDZ란?](#tdz란)  
+[var, let, const의 차이](#var-let-const의-차이)  
+[scope란?](#scope란)  
+[클로저란?](#클로저란)  
+[call, apply, bind의 차이](#call-apply-bind의-차이)  
+[swich과 if else 비교](#swich과-if-else-비교)  
+[for in과 for of 차이](#for-in과-for-of-차이)  
+[Symbol란?](#symbol란)  
+[iterable, iterator란?](#iterable-iterator란)  
+[generator란?](#generator란)
+[HTTP와 HTTPS의 차이와 HTTPS의 동작 과정](#http와-https의-차이와-https의-동작-과정)  
+[cookie, session, local storage의 차이](#cookie-session-local-storage의-차이)
+
+---
+
+### this란?
+
+함수가 실행되는 문맥을 가리키는 키워드 이다. this는 함수가 호출되는 상황에 따라 다르게 값이 할당된다. 함수 호출의 종류에는 생성자 호출, 메서드 호출, 이벤트 콜백, call, apply, bind에 의한 호출이 있다.
+
+```js
+function test() {
+  console.log(this);
+}
+
+const obj = {
+  test1: test,
+};
+
+const obj1 = {
+  name: "lee",
+};
+
+const obj2 = {
+  name: "kim",
+};
+
+//메서드 호출
+obj.test1(); // 함수를 소유하고 있는 객체를 가리킨다.
+//생성자 호출
+new test(); // 생성된 인스턴스를 가리킨다.
+//이벤트 콜백
+button.addEventListener("click", test); // button 태그를 가리킨다.
+//call, apply, bind
+
+// 첫번째 인자로 전달한 객체를 this가 가리키도록 강제한다.
+test.call(obj1);
+test.apply(obj2);
+test.bind(obj1)();
+```
+
+### 호이스팅이란?
+
+해당 함수 스코프의 최상단으로 선언을 올리는것이다. 변수 호이스팅과 함수 호이스팅이 있는데 변수 호이스팅은 선언, 초기화가 이뤄지고 런타임에서 할당문을 만나면 변수에 값을 할당한다. 반면 함수 호이스팅은 선언, 초기화, 할당이 한번에 이뤄진다.
+
+```js
+console.log(test()); // 'test'
+console.log(str); // undefind
+
+function test() {
+  // 함수 호이스팅
+  return "test";
+}
+var str = "Hello World!"; // 변수 호이스팅
+
+console.log(str); // 'Hello World!'
+```
+
+> Javascript 인터프리터 내부에서 변수가 생성되는 3단계 과정
+
+1. 선언: 스코프와 변수 객체가 생성되고 스코프가 변수 객체를 참조
+2. 초기화: 변수 객체가 가질 값을 위해 메모리에 공간을 할당한다. 이때 초기화되는 값은 undefined이다.
+3. 할당: 변수 객체에 값을 할당한다.
+
+const, let 역시 호이스팅 되지만 변수가 초기화되기 전에 접근하려고 하면 TDZ에 의해 ReferenceError가 발생한다.
+
+```js
+var x = "Hello";
+(function () {
+  console.log(x); // undefined
+  var x = "World";
+})();
+
+const y = "Hello";
+(function () {
+  console.log(y); // ReferenceError
+  const y = "World";
+})();
+```
+
+### TDZ란?
+
+호이스팅으로 선언되지만 작성한 코드 구문에 다다를 때까지 접근할 수 없는 값들을 담아놓는 공간이다. const, let, class, default param, super 사용 시 등의 구문이 TDZ의 영향을 받는다. 반대로 var, function, import 구문은 TDZ의 영향을 받지 않는다.
+
+```js
+pi; // Error
+const pi = 'pi';
+-----
+test; // Error
+let test = 'test';
+-----
+new Pi(); // Error
+class Pi {};
+-----
+class Super {}
+class Sub extends Super {
+  constructor() {
+    this.sub = 'sub';
+    super(); // Error
+  }
+}
+-----
+const a = 2;
+function square(a = a) { // a의 값이 초기화 되기 이전에 a에 접근하려고 하기때문에 TDZ에 의해 Error가 발생한다.
+  return a * a;
+}
+square();
+```
+
+> 기본 매개변수는 글로벌과 함수 스코프 사이의 중간 스코프에 위치한다.
+
+> 참고
+>
+> - [TDZ을 모른 채 자바스크립트 변수를 사용하지 말라](https://ui.toast.com/weekly-pick/ko_20191014/)
+
+### var, let, const의 차이
+
+let과 const는 **block level scope**를 가지며 호이스팅 되긴 하지만 초기화 구문 이전에 접근하면 TDZ에서 Error를 발생시킨다.
+const는 초기화만 할 수 없으며 반드시 할당까지 해야 하며 상수를 정의 하므로 const로 정의한 변수에 값을 재할당할 수 없다.
+
+```js
+const a = "a";
+let b = "b";
+var c = "c";
+
+if (true) {
+  const a = "a1";
+  let b = "b1";
+  var c = "c1";
+  console.log(a, b, c); // a1 b1 c1
+}
+console.log(a, b, c); // a b c1
+```
+
+```js
+const a; // Error
+let b;
+-----
+const a = 'a';
+let b = 'b';
+a = 'a1'; //Error
+b = 'b1';
+```
+
+### scope란?
+
+함수에서 접근할 수 있는 유효 범위를 가리킨다. [Scope Chain](/실행-컨텍스트#scope-chain)을 이용하여 외부 함수의 변수 객체에 접근할 수 있다. 이를 이용해 외부 함수가 소멸해도 내부 함수에서 외부 함수의 변수 객체에 접근할 수 있다.
+
+```js
+const test = (function () {
+  //외부 함수
+  const a = 1;
+  return function () {
+    // 내부 함수
+    return a;
+  };
+})();
+
+/*
+  내부 함수 EC
+  Scope chain
+  VO: {}
+  외부 함수 { a: 1 }
+  window {}
+*/
+
+console.log(test()); // 내부 함수 실행
+```
+
+### 클로저란?
+
+내부 함수에서 외부 함수의 변수 객체에 접근할 수 있는 것이다. 외부 함수가 소멸되어도 내부 함수에서 외부 함수의 변수 객체에 대한 참조값을 유지한다. scope chain으로 외부 함수의 변수 객체에 접근할 수 있기 때문에 가능하다.
+
+```js
+const test = (function () {
+  // 외부 함수
+  const str = "Hello World!";
+  return function () {
+    // 내부 함수
+    return str; // 외부 함수 변수 접근
+  };
+})(); // 외부 함수 즉시 실행 -> 외부 함수 소멸
+
+console.log(test()); // 'Hello World!'
+```
+
+### call, apply, bind의 차이
+
+3가지 함수 모두 첫 번째 인자로 전달한 객체를 this가 참조하게 한다. call, apply는 두 번째 인자를 각각 인자로 넘기느냐 배열로 넘기느냐의 차이다. call과 apply는 바로 호출한 함수를 실행하지만, bind는 실행하지 않는다.
+
+```js
+const obj = { name: "lee" };
+function test(a, b) {
+  return `${a} ${this.name} ${b}`;
+}
+test.call(obj, "Hello", "!"); // Hello lee !
+test.apply(obj, ["Hello", "@"]); // Hello lee @
+const bindTest = test.bind(obj);
+bindTest("Hello", "#"); // Hello lee #
+```
+
+### == 와 ===의 차이
+
+==는 단순히 값이 같은지 비교하고 ===는 값뿐만 아니라 타입까지 같은지 비교한다.
+
+```js
+1 == "1"; // true
+1 === "1"; // false
+1 === 1; // true
+null == undefined; // true
+null === undefined; // false
+null === null; // true
+```
+
+> null, undefined 둘 다 값이 없음을 나타내기 때문에 ==가 true를 반환하는거 같다.
+
+### swich과 if else 비교
+
+swich 문의 case는 상수만 사용 가능하며 변수, 비교식 등에는 사용할 수 없다. 값이 많을 경우 switch 문이 if else보다 가독성도 좋고 비교하는 값이 많을 속도도 미비하지만 빠르다고 한다. if else 문은 중첩이 가능하다.
+
+### for in과 for of 차이
+
+for in 문은 모든 객체에서 사용 가능하며 [[Enumerable]]의 값이 true인 속성들만 반복할 수 있다. for in 문은 객체가 직접 소유한 속성뿐 아니라 접근 가능한 모든 속성에 대한 값을 출력한다. for of 문은 컬렉션 전용이다. 모든 객체보다는 [Symbol.iterator] 속성이 있는 모든 컬렉션 요소에 대해 반복한다.
+
+```js
+Object.prototype.test = () => {};
+Array.prototype.test1 = () => {};
+const arr = [1, 2, 3, 4, 5];
+arr.foo = "foo";
+Object.defineProperty(arr, "bar", {
+  enumerable: false,
+  configurable: false,
+  writable: false,
+  value: "bar",
+});
+for (const a in arr) {
+  console.log(a); // 0, 1, 2, 3, 4, foo, test1, test
+}
+for (const a of arr) {
+  console.log(a); // 1, 2, 3, 4, 5
+}
+```
+
+> Enumerable속성은 Object.defineProperty 메서드를 통해, 객체 속성을 Enumerable, Nonenumerable로 정의할 수 있다.
+
+> 참고
+>
+> - [자바스크립트 for in vs for of 반복문 정리](https://jsdev.kr/t/for-in-vs-for-of/2938)
+> - [JS Enumerable(열거자) or Nonenumerable(비 열거자)](http://mohwa.github.io/blog/javascript/2015/10/09/enumerable-inJS/)
+
+### Symbol란?
+
+중복되지 않는 유일한 값을 만드는 데 사용한다. 첫 번째 인자로 전달하는 문자열은 작성자의 의도를 설명할 뿐이다. new 키워드를 사용할 수 없으며 생성된 symbol을 객체의 속성으로 접근할 때 dot 연산자를 이용해 접근할 수 없다. 자바스크립트에서 미리 정의된 Symbol을 이용해 core method에 접근할 수 있다.
+
+```js
+const sA = new Symbol('a'); // Error
+-----
+const sA1 = Symbol('a'); // Symbol(a)
+const sA2 = Symbol('a'); // Symbol(a)
+console.log(sA1 === sA2); // false
+-----
+```
+
+> 참고
+>
+> - [MDN_Symbol](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
+> - [[Javascript] Symbol 에 대해서](https://medium.com/@hyunwoojo/javascript-symbol-%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-6aa5903fb6f1)
+> - [ES6의 심볼, 이터레이터, 제네레이터에 대해 알아보자](https://gist.github.com/qodot/ecf8d90ce291196817f8cf6117036997)
+
+### iterable, iterator란?
+
+iterable은 순환 가능한 객체를 가리킨다. 순환 가능한 객체란 Symbol.iterator 속성을 가지고 있고 이터레이터 객체를 반환하는 객체를 뜻한다. 이런 스펙을 이터러블 프로토콜이라고 하면 이 프로토콜을 지킨 객체를 이터러블 객체라고 한다.  
+Symbol.iterator 함수가 반환한 이터레이터 객체는 next() 메서드를 구현하고 있고, done과 value 속성을 가진 객체를 반환하는 객체이다. 이런 스펙을 어터레이터 프로토콜이라고 한다.
+
+```js
+const obj = {
+  // 이터러블 객체, 이터레이터 객체
+  [Symbol.iterator]() {
+    // for loop 실행 전 호출
+    return this; // 이터레이터 객체를 반환
+  },
+  next() {
+    // 순차적으로 호출하면서 하나씩 순회한다.
+    return { done: false, value: 0 }; // done의 값이 true가 될때까지 next메서드를 호출하는데 done의 값이 false이기 때문에 영원히 0을 반환한다.
+  },
+};
+for (const a of obj) {
+  // console.log(a); // 영원히 0을 반환한다.
+}
+```
+
+> 참고
+>
+> - [ES6의 심볼, 이터레이터, 제네레이터에 대해 알아보자](https://gist.github.com/qodot/ecf8d90ce291196817f8cf6117036997)
+
+### generator란?
+
+이터러블, 이터레이터 객체를 손쉽게 만들 수 있는 방법이다.
+
+```js
+function* range(start, stop) {
+  for (let i = start; i < stop; i++) {
+    yield i;
+  }
+}
+```
+
+1. 제네레이터 함수( 이터러블 객체 )를 실행해도 아무 일도 일어나지 않고 그냥 제네레이터 객체( 이터레이터 객체 )가 반환된다.
+2. 제네레이터 객체는 next() 메소드를 실행할 때마다 다음 yield 문까지 실행되고 정지한다. 다시 next()를 실행하면 아까 멈췄던 yield부터 다음 yield까지 실행하고 다시 정지한다.
+3. 더 이상 yield가 없으면 제네레이터의 실행은 완전히 종료된다.
+
+next() 메소드에 인자를 전달 할 수 있는데 제네레이터가 실행을 재개할 때 yield문이 반환하는 값이 된다.
+
+```js
+function* caculate() {
+  const x = yield 1; // 첫 번째 next()가 반환하는 객체의 value의 값이 된다.
+  // 2번쨰 next의 인자로 전달된 10이 x의 값이 된다.
+  const y = yield x + 1;
+  // 3번째 next의 인자로 전달된 20이 y의 값이 된다.
+  const z = yield y + 2;
+  // 4번째 next의 인자로 전달된 30이 z의 값이 된다.
+  return x + y + z;
+}
+const myItr = caculate();
+console.log(myItr.next()); // { value: 1, done: false }
+console.log(myItr.next(10)); // { value: 11, done: false}
+console.log(myItr.next(20)); // { value: 22, done: false }
+console.log(myItr.next(30)); // { value: 60, done: true }
+```
+
+> 참고
+>
+> - [ES6의 심볼, 이터레이터, 제네레이터에 대해 알아보자](https://gist.github.com/qodot/ecf8d90ce291196817f8cf6117036997)

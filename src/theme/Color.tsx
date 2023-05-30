@@ -1,0 +1,22 @@
+import { createGlobalStyle, css } from "styled-components";
+
+const Colors = css`
+  :root {
+    --color-grey-50: #fafafa;
+    --color-grey-100: #f5f5f5;
+    --color-grey-200: #eeeeee;
+    --color-grey-300: #e0e0e0;
+    --color-grey-400: #bdbdbd;
+    --color-grey-500: #9e9e9e;
+    --color-grey-600: #757575;
+    --color-grey-700: #616161;
+    --color-grey-800: #424242;
+    --color-grey-900: #212121;
+  }
+`;
+
+const Color = createGlobalStyle`
+    ${Colors}
+`;
+
+export default Color;
