@@ -8,7 +8,7 @@ export const Root = styled.div`
 export const Title = styled.h1`
   font-size: 3rem;
   font-weight: bold;
-  color: var(--color-gray-900);
+  color: var(--color-grey-900);
 `;
 
 export const Body = styled.div`

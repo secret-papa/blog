@@ -5,7 +5,7 @@ import path from "path";
 import urlJoin from "url-join";
 
 import { BasicFrontmatter } from "./types";
-import { getIndexListing, getTagListing, getCategoryListing } from "./utils/queries";
+import { getIndexListing } from "./utils/queries";
 import { initFeedMeta, createFeed } from "./utils/feeds";
 import { schema as configSchema, SiteConfig, withBasePath, withDefaults } from "../src/config";
 
@@ -82,6 +82,7 @@ export const createPages: GatsbyNode["createPages"] = async (
 
   // Get full post listing
   const fullListing = await getIndexListing(graphql);
+  console.log(fullListing.length);
 
   // Iterate over posts
   fullListing.forEach((post, index) => {
@@ -123,20 +124,20 @@ export const createPages: GatsbyNode["createPages"] = async (
   await createFeed(config, actions, fullListing, "index");
 
   //  Create tag listing feeds based on our set
-  const tagTasks = Array.from(tagSet.keys()).map(async tag => {
-    const tagListing = await getTagListing(graphql, tag);
+  // const tagTasks = Array.from(tagSet.keys()).map(async tag => {
+  //   const tagListing = await getTagListing(graphql, tag);
 
-    await createFeed(config, actions, tagListing, "tag", tag);
-  });
+  //   await createFeed(config, actions, tagListing, "tag", tag);
+  // });
 
-  await Promise.all(tagTasks);
+  // await Promise.all(tagTasks);
 
   // Create category listing feeds based on our set
-  const categoryTasks = Array.from(categorySet.keys()).map(async category => {
-    const categoryListing = await getCategoryListing(graphql, category);
+  // const categoryTasks = Array.from(categorySet.keys()).map(async category => {
+  //   const categoryListing = await getCategoryListing(graphql, category);
 
-    await createFeed(config, actions, categoryListing, "category", category);
-  });
+  //   await createFeed(config, actions, categoryListing, "category", category);
+  // });
 
-  await Promise.all(categoryTasks);
+  // await Promise.all(categoryTasks);
 };

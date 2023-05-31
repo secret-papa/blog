@@ -23,6 +23,7 @@ query IndexFeedListing($skip: Int, $limit: Int) {
             childImageSharp {
               gatsbyImageData(height: 368)
             }
+            publicURL
           }
           coverAlt
           tags

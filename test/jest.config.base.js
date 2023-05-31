@@ -32,9 +32,6 @@ module.exports = {
   setupFiles: [path.join(__dirname, "./loadershim.js")],
   setupFilesAfterEnv: [path.join(__dirname, "./setup-test-env.js")],
   collectCoverage: true,
-  collectCoverageFrom: [
-    "src/**/*.{js,jsx,ts,tsx}",
-    "gatsby/**/*.{js,jsx,ts,tsx}",
-  ],
+  collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
   coveragePathIgnorePatterns: ["src/netlifycms/index.js"],
 };

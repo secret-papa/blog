@@ -1,54 +1,64 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import { Link } from "gatsby";
 
-// import useInfiniteFeed from "./useInfiniteFeed";
+import { PageContext } from "./types";
+import { Root, Body, List as StyledList } from "./styles";
+import { PostFromJson, PostFromJsonList } from "../../types";
+import { Header, Card } from "../../components/common";
+import { generateFormattedTime } from "../../utils/date";
 
-// import { PageContext } from "./types";
-import { useConfig } from "../../config";
-
-export type FeedTemplateProps = {
-  // pageContext: PageContext;
+type ItemProps = {
+  post: PostFromJson;
 };
 
-// export type FeedTemplateContext = PageContext;
+const Item = ({ post }: ItemProps) => {
+  const { route, title, description, coverImageAlt, coverImageUrl, datePublished } = post;
+  const formattedPublishedDate = generateFormattedTime(datePublished);
 
-const FeedTemplate = (props: FeedTemplateProps): JSX.Element => {
-  // const { feedListing, feedElementRef } = useInfiniteFeed(pageContext);
+  return (
+    <li>
+      <Link to={route}>
+        <Card
+          title={title}
+          description={description}
+          meta={[formattedPublishedDate]}
+          coverImageAlt={coverImageAlt}
+          coverImageUrl={coverImageUrl}
+        />
+      </Link>
+    </li>
+  );
+};
 
-  const config = useConfig();
+type ListProps = {
+  posts: PostFromJsonList;
+};
 
-  // // Override the title for non-index feeds
-  // const getTitleOverride = () => {
-  //   if (pageContext.feedId) {
-  //     if (pageContext.feedType === "tag")
-  //       return (
-  //         <Helmet title={`Posts tagged as "${pageContext.feedId}" | ${config.website.title}`} />
-  //       );
+const List = ({ posts }: ListProps) => (
+  <StyledList>
+    {posts.map(post => (
+      <Item key={post.slug} post={post} />
+    ))}
+  </StyledList>
+);
 
-  //     if (pageContext.feedType === "category")
-  //       return (
-  //         <Helmet title={`Posts in category "${pageContext.feedId}" | ${config.website.title}`} />
-  //       );
-  //   }
-  //   return null;
-  // };
+export type FeedTemplateProps = {
+  pageContext: PageContext;
+};
 
-  // return (
-  //   <div className="feed-wrapper" ref={feedElementRef}>
-  //     {getTitleOverride()}
-  //     {feedListing.map(post => {
-  //       // Check if we're rendering a placeholder and determine a key
-  //       const key = "isPlaceholder" in post ? post.key : post.slug;
+export type FeedTemplateContext = PageContext;
 
-  //       return (
-  //         <pre key={key}>
-  //           <code>{JSON.stringify(post, null, 2)}</code>
-  //         </pre>
-  //       );
-  //     })}
-  //   </div>
-  // );
-  return <div>feed</div>;
+const FeedTemplate = ({ pageContext }: FeedTemplateProps): JSX.Element => {
+  const { posts } = pageContext.feedPageMeta;
+
+  return (
+    <Root>
+      <Header />
+      <Body>
+        <List posts={posts} />
+      </Body>
+    </Root>
+  );
 };
 
 export default FeedTemplate;

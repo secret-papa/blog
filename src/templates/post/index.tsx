@@ -18,7 +18,7 @@ import {
   Title,
 } from "./styles";
 import { BlogPostBySlugQuery, queryIntoPost } from "../../types";
-import Header from "../../components/common/Header";
+import { Header } from "../../components/common";
 
 type PostTemplateProps = {
   data: BlogPostBySlugQuery;
