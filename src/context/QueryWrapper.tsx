@@ -6,12 +6,12 @@ import { ReactQueryDevtools } from "react-query/devtools";
 const queryClient = new QueryClient();
 
 type QueryWrapperProps = {
-  element: ReactNode;
+  children: ReactNode;
 };
 
-const QueryWrapper = ({ element }: QueryWrapperProps) => (
+const QueryWrapper = ({ children }: QueryWrapperProps) => (
   <QueryClientProvider client={queryClient}>
-    {element}
+    {children}
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );

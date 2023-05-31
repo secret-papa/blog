@@ -103,16 +103,13 @@ html,
   section {
     display: block;
   }
-  html,
-  body {
-    font-size: 62.5%;
-  }
-  body {
-    line-height: 1;
-  }
   ol,
   ul {
     list-style: none;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
   }
   blockquote,
   q {
