@@ -31,7 +31,7 @@
     "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write",
     "format:styles": "prettier '**/*.css' --write",
     "format:all": "npm run format:js && npm run format:styles",
-    "test": "jest",
+    "test": "jest --coverage=false",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "cy:open:dev": "CYPRESS_STAGE=dev CYPRESS_BASE_URL=http://localhost:8000 cypress open",

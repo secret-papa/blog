@@ -1,5 +1,5 @@
 {
-  "exclude": ["node_modules", "**/tests", "**/*.spec.*"],
+  "exclude": ["node_modules", "**/tests"],
   "include": [
     "./gatsby/**/*",
     "./src/**/*",

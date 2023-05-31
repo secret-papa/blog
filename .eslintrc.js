@@ -86,8 +86,8 @@ module.exports = {
         "**/__mocks__/**",
         "*.spec.ts",
         "*.spec.tsx",
-        "*.spec.js",
-        "*.spec.jsx",
+        "*.test.ts",
+        "*.test.tsx",
       ],
       extends: ["plugin:jest/all", "plugin:jest-dom/recommended"],
       plugins: ["jest", "jest-dom"],
@@ -98,6 +98,14 @@ module.exports = {
       },
       rules: {
         "jest/no-hooks": "off",
+        "jest/prefer-expect-assertions": [
+          "warn",
+          {
+            onlyFunctionsWithAsyncKeyword: true,
+            onlyFunctionsWithExpectInLoop: true,
+            onlyFunctionsWithExpectInCallback: true,
+          },
+        ],
         "@typescript-eslint/unbound-method": "off",
         "jest/unbound-method": "error",
         "import/no-extraneous-dependencies": [
