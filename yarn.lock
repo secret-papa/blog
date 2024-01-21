@@ -4697,12 +4697,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-helmet@npm:6.1.5":
-  version: 6.1.5
-  resolution: "@types/react-helmet@npm:6.1.5"
+"@types/react-helmet@npm:6.1.11":
+  version: 6.1.11
+  resolution: "@types/react-helmet@npm:6.1.11"
   dependencies:
     "@types/react": "*"
-  checksum: d059cc084d3b3071cce3421bb1170dd42819cf39b81afe60d4fbd66c5ef9ffeaadf1802df80efd9553258f621678f69ceb5a21d73df0d8539d40ae9a0f995485
+  checksum: e329d8ad82c365fec7dd7d91c8b6d167faac30cef0d9f1e27d7e895172a0ebfa65829fb4acabbe79283b01cbbe5840a845caeb50148ceef6f3fad42b3c2c4bdc
   languageName: node
   linkType: hard
 
@@ -12601,7 +12601,7 @@ __metadata:
     "@types/prismjs": ^1
     "@types/react": 18.2.7
     "@types/react-dom": 17.0.17
-    "@types/react-helmet": 6.1.5
+    "@types/react-helmet": 6.1.11
     "@types/source-map-support": ^0
     "@types/styled-components": 5.1.25
     "@types/url-join": ^4.0.1
