@@ -4806,11 +4806,11 @@ __metadata:
   linkType: hard
 
 "@types/source-map-support@npm:^0":
-  version: 0.5.6
-  resolution: "@types/source-map-support@npm:0.5.6"
+  version: 0.5.10
+  resolution: "@types/source-map-support@npm:0.5.10"
   dependencies:
     source-map: ^0.6.0
-  checksum: b2b52b3e4901e52df30ebd23056885a352462c0d6fd73418e793684665a7602168e7c337241f0391562e8c1051ff37cbcb9b7d775990ee1f2a0d8a6ffa2cb22a
+  checksum: ef287caea52a41b600a128d36cf961f048913e30fe143f7d882d19014635d0ca89e27013a48b0e6353ca277689d633c2ef65a25b2f8cd6d82916a2f908f18c38
   languageName: node
   linkType: hard
 
