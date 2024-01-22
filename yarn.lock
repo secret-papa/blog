@@ -12022,12 +12022,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-disqus@npm:1.2.4":
-  version: 1.2.4
-  resolution: "gatsby-plugin-disqus@npm:1.2.4"
+"gatsby-plugin-disqus@npm:1.2.6":
+  version: 1.2.6
+  resolution: "gatsby-plugin-disqus@npm:1.2.6"
   peerDependencies:
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 2b84f8e9dd9a9176262d255d96add369b7e4d908124a733b83fd566e5f10eba51769660cc5b6402b5e904b86f8a36036f0d6248ae5063b87f564d934371ffc42
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 769398641a2e433f7705044b7da64a68ed932d959951393bfa584c43eac61c7d7f7d4bd1e996711587e614e8bdcf0569b744a130cd20efbaa98827ef11965433
   languageName: node
   linkType: hard
 
@@ -12613,7 +12614,7 @@ __metadata:
     gatsby-image: 3.11.0
     gatsby-plugin-catch-links: 4.17.0
     gatsby-plugin-compile-es6-packages: 2.1.1
-    gatsby-plugin-disqus: 1.2.4
+    gatsby-plugin-disqus: 1.2.6
     gatsby-plugin-feed: 4.17.0
     gatsby-plugin-google-gtag: 4.25.0
     gatsby-plugin-image: 2.17.0
