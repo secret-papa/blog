@@ -143,7 +143,7 @@
     "stylelint-config-recommended": "12.0.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-prettier": "2.0.0",
-    "ts-jest": "28.0.5",
+    "ts-jest": "28.0.8",
     "ts-prune": "0.10.3",
     "typescript": "5.1.6",
     "write-good": "1.0.8"
