@@ -88,7 +88,7 @@
     "@tanstack/react-query": "4.0.5",
     "remark-codesandbox": "^0.10.1",
     "remark-external-links": "8.0.0",
-    "remark-unwrap-images": "2.1.0",
+    "remark-unwrap-images": "4.0.0",
     "source-map-support": "0.5.21",
     "styled-components": "5.3.3",
     "ts-node": "10.9.1",
