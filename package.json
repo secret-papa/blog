@@ -98,7 +98,7 @@
     "@netlify/gatsby-runner": "^1.1.14",
     "@testing-library/cypress": "8.0.7",
     "@testing-library/jest-dom": "5.16.4",
-    "@testing-library/react": "14.0.0",
+    "@testing-library/react": "14.3.1",
     "@types/jest": "28.1.8",
     "@types/lodash": "4",
     "@types/mdx-js__react": "1.5.8",
