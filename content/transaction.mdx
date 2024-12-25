@@ -1,0 +1,114 @@
+---
+title: "Transaction"
+description: "Transaction에 대해서 설명합니다."
+category: "DB"
+cover: images/thumbnail/db.png
+coverAlt: "about Transaction"
+datePublished: "2024-12-25"
+dateModified: "2024-12-25"
+tags:
+  - DB
+  - Transaction
+---
+### 정의
+
+- 하나의 논리적인 작업 단위로, **데이터베이스 작업의 성공과 실패를 관리**하는 메커니즘.
+- 작업 성공 시 `commit`, 작업 실패 시 `rollback`을 통해 데이터의 일관성과 무결성을 유지.
+
+### 주요 개념
+
+1. **Commit**:
+    - 작업이 성공적으로 완료되어 데이터를 DB에 **영구적으로 반영**하는 것.
+2. **Rollback**:
+    - 작업 도중 오류가 발생하거나 실패할 경우, 작업 상태를 **처음으로 되돌리는 것**.
+
+---
+
+### 트랜잭션의 ACID 특성
+
+1. **원자성(Atomicity)**
+    - 트랜잭션은 **하나의 논리적인 작업 단위**로 간주되며, 작업 전체가 성공하거나 실패해야 함.
+2. **일관성(Consistency)**
+    - 트랜잭션 수행 전후의 데이터는 **무결성 제약 조건을 항상 만족**해야 함.
+3. **격리성(Isolation)**
+    - 트랜잭션 간의 작업은 **상호 간섭 없이 독립적으로 수행**되어야 함.
+    - 트랜잭션의 격리 수준은 성능과 직결되며, 이에 따른 트레이드오프가 필요.
+4. **지속성(Durability)**
+    - 트랜잭션이 성공적으로 완료되면, 그 결과는 **영구적으로 저장**되어야 함.
+
+---
+
+### 트랜잭션 격리 수준 (Isolation Level)
+
+트랜잭션 격리 수준은 데이터베이스에서 트랜잭션 간의 간섭을 허용할 정도를 정의하며, 이를 통해 데이터 정합성과 성능을 조율함.
+
+| **격리 수준** | **설명** | **문제 발생 가능성** |
+| --- | --- | --- |
+| **READ UNCOMMITTED** | 다른 트랜잭션에서 **커밋되지 않은 데이터**도 읽기 가능 | Dirty Read, Non-Repeatable Read, Phantom Read |
+| **READ COMMITTED** | 다른 트랜잭션에서 **커밋된 데이터만 읽기 가능** | Non-Repeatable Read, Phantom Read |
+| **REPEATABLE READ** | 트랜잭션 동안 **동일한 데이터를 반복해서 읽어도 동일한 값**을 반환 (읽기 일관성 보장) | Phantom Read |
+| **SERIALIZABLE** | 모든 트랜잭션을 **직렬화된 순서대로 처리**하여 가장 높은 일관성 보장 | 성능 저하 |
+
+### 격리 수준에서 발생할 수 있는 문제들
+
+1. **Dirty Read**:
+    - 다른 트랜잭션의 **커밋되지 않은 데이터**를 읽는 경우.
+2. **Non-Repeatable Read**:
+    - 같은 트랜잭션 내에서 **같은 데이터를 읽었을 때 결과가 달라지는 경우**.
+3. **Phantom Read**:
+    - 같은 트랜잭션 내에서 **데이터를 조회했을 때 새로운 데이터가 추가되거나 삭제된 것처럼 보이는 경우**.
+
+---
+
+### DB 연결 구조와 세션
+
+1. **클라이언트에서 Connection 획득**
+    - 애플리케이션에서 DB와 통신하기 위해 Connection을 생성.
+2. **DB에서 Session 생성**
+    - 각 Connection은 DB에서 고유한 Session을 생성.
+    - 기본적으로 Connection마다 독립된 Session이 생성됨.
+3. **SQL 실행**
+    - Session을 통해 SQL을 실행하고, 결과를 반환받음.
+
+---
+
+### 트랜잭션 사용하기
+
+### Commit과 Rollback
+
+- **Commit**:
+    - 데이터를 영구적으로 저장하여, **다른 Session에서도 변경된 결과를 확인**할 수 있음.
+- **Rollback**:
+    - 트랜잭션 도중 실패한 작업을 취소하고, **변경 이전 상태로 복구**.
+
+### Commit되지 않은 데이터의 문제점
+
+- 만약 **Commit되지 않은 데이터를 다른 Session에서 조회 가능**하다면, Rollback 시 데이터 정합성에 심각한 문제가 발생.
+- 이를 방지하기 위해 트랜잭션 격리 수준을 적절히 설정해야 함.
+
+---
+
+### 자동 Commit과 수동 Commit
+
+1. **자동 Commit**
+    - SQL 실행 시 자동으로 Commit되는 모드.
+    - 트랜잭션의 명시적인 관리가 필요 없는 경우 사용.
+2. **수동 Commit**
+    - SQL 실행 후, `commit` 또는 `rollback` 명령으로 DB 반영 여부를 명시적으로 결정.
+    - 일반적으로 트랜잭션을 시작한다고 할 때, 자동 Commit 모드에서 수동 Commit 모드로 전환.
+    - 설정 방법:
+        - `SET AUTOCOMMIT = TRUE` (자동 Commit 모드)
+        - `SET AUTOCOMMIT = FALSE` (수동 Commit 모드)
+
+---
+
+### 요약
+
+| **항목** | **설명** |
+| --- | --- |
+| **Commit** | 작업 성공 시 데이터를 DB에 영구 반영. |
+| **Rollback** | 작업 실패 시 데이터를 초기 상태로 되돌림. |
+| **ACID** | 원자성, 일관성, 격리성, 지속성의 4가지 특성을 만족하는 트랜잭션의 기본 원칙. |
+| **Isolation Level** | 트랜잭션 간 간섭 허용 정도를 설정. READ UNCOMMITTED부터 SERIALIZABLE까지 4단계로 구분. |
+| **Session** | 각 Connection이 DB에서 독립적으로 SQL을 실행하는 논리적 작업 단위. |
+| **Commit 방식** | 자동 Commit과 수동 Commit 방식이 있으며, 일반적으로 수동 Commit 모드에서 트랜잭션 관리 수행. |

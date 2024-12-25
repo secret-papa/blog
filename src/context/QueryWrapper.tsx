@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
@@ -10,10 +9,7 @@ type QueryWrapperProps = {
 };
 
 const QueryWrapper = ({ children }: QueryWrapperProps) => (
-  <QueryClientProvider client={queryClient}>
-    {children}
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
 
 export default QueryWrapper;
