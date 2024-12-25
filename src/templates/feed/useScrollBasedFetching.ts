@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { UseInfiniteQueryResult } from "react-query";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 const useScrollBasedFetching = (
   feedQuery: UseInfiniteQueryResult,
