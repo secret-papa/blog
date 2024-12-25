@@ -1,0 +1,165 @@
+---
+title: "커넥션 풀과 데이터소스에 대한 이해"
+description: "커넥션 풀과 데이터소스에 대해 설명합니다."
+category: "spring"
+cover: images/thumbnail/spring.png
+coverAlt: "connection-pool-and-datasource"
+datePublished: "2024-12-25"
+dateModified: "2024-12-25"
+tags:
+  - spring
+  - connection-pool
+  - datasource
+---
+
+## JDBC (Java Database Connectivity)
+
+### 등장 배경
+
+- 데이터베이스(DB) 벤더마다 **Connection 연결, SQL 실행, 결과 처리** 방식이 달랐음.
+- 이러한 차이로 인해 DB를 변경할 때마다 코드를 수정하고, 새 DB의 학습이 필요했음.
+- 이를 해결하기 위해 표준화된 **JDBC**가 등장했음.
+
+### JDBC의 정의
+
+- JDBC는 DB와 애플리케이션 간 연결을 위한 표준 인터페이스를 제공함.
+- **Connection, SQL 실행, Result 처리**와 관련된 인터페이스를 정의.
+- 예: `MySQLDriver`, `OracleDriver` 같은 드라이버는 JDBC 표준 인터페이스를 구현.
+
+### 한계점
+
+- **ANSI SQL**이라는 SQL 표준이 있지만, DB 벤더마다 고유한 SQL 확장 기능을 제공.
+- 따라서 애플리케이션 개발자가 벤더 종속적인 SQL을 직접 작성해야 하는 경우가 많음.
+- 이를 해결하기 위해 SQL Mapper나 ORM 기술을 사용.
+
+---
+
+### SQL Mapper
+
+### 정의
+
+- SQL Mapper는 SQL을 관리하고, JDBC의 반복적인 작업을 줄여주는 인터페이스.
+- JDBC와 DB 사이에서 SQL 전달 및 처리 담당.
+
+### 구조
+
+```jsx
+Application code → SQL Mapper → (SQL 전달) → JDBC → DB
+
+```
+
+### 구현체
+
+- 대표적인 구현체: **JDBCTemplate**, **MyBatis**.
+
+### 장점
+
+- **JDBC 코드의 반복적인 작업을 줄여줌**: Connection 관리, ResultSet 매핑, 리소스 정리 등이 간소화.
+
+### 단점
+
+- 여전히 개발자가 직접 SQL을 작성해야 함.
+- 복잡한 비즈니스 로직이나 다중 테이블 연산에서 코드 관리가 어려울 수 있음.
+
+---
+
+### ORM (Object-Relational Mapping)
+
+### 정의
+
+- 객체(Object)와 DB 테이블을 매핑하여, 객체를 통해 데이터베이스 작업을 처리하는 기술.
+- JDBC를 추상화한 표준 인터페이스 제공.
+
+### 구조
+
+```jsx
+Application code → JPA → (SQL 전달) → JDBC → DB
+
+```
+
+### JPA
+
+- **Java Persistence API**: Java 진영에서 정의한 ORM 표준 인터페이스.
+
+### JPA 구현체
+
+- **Hibernate**, **EclipseLink** 등이 대표적인 JPA 구현체.
+
+### 장점
+
+- SQL 작성 없이 객체 중심으로 데이터베이스 작업 가능.
+- 코드 가독성과 유지보수가 용이함.
+
+### 단점
+
+- 초기 학습 비용이 높음.
+- 복잡한 쿼리(예: 성능 최적화)에서 SQL을 직접 작성해야 할 수 있음.
+
+---
+
+### DriverManager
+
+### 정의
+
+- **JDBC 드라이버 관리**를 담당하는 클래스.
+- 애플리케이션에서 사용되는 DB 드라이버를 관리하고, 적절한 드라이버를 선택해 **Connection**을 생성.
+
+### 동작 방식
+
+1. **DriverManager**는 등록된 여러 드라이버(MySQL, Oracle 등)를 관리.
+2. 특정 DB URL로 **Connection** 요청이 들어오면, 순차적으로 드라이버에 연결 시도.
+3. 성공한 드라이버로 연결을 설정.
+
+---
+
+### Connection Pool
+
+### 등장 배경
+
+- 매번 DB Connection을 생성하면, **TCP/IP 연결 및 인증 과정**이 반복되어 성능 저하 발생.
+- 이를 해결하기 위해 **Connection Pool**을 사용.
+
+### 정의
+
+- 애플리케이션 시작 시 미리 여러 DB Connection을 생성해 Pool에 저장.
+- 애플리케이션에서 Connection이 필요할 때 Pool에서 재사용.
+
+### 구현체
+
+- 대표적인 Connection Pool 구현체: **HikariCP**.
+
+### 특징
+
+- Connection Pool을 관리하는 별도의 **스레드**에서 동작.
+- 사용 가능한 Connection이 없으면, Connection이 반환될 때까지 대기.
+
+---
+
+### DataSource
+
+### 정의
+
+- **Connection을 획득하는 방법을 추상화**한 인터페이스.
+
+### 역할
+
+- JDBC의 표준 인터페이스로, DB Connection 생성 방식을 통일.
+- Connection Pool을 사용하지 않을 때는 `DriverManagerDataSource` 제공.
+- Connection Pool을 사용할 경우, `HikariDataSource`와 같은 구현체 사용.
+
+### 구현체
+
+- **HikariCP**는 `HikariDataSource`를 통해 DataSource 인터페이스를 구현.
+
+---
+
+### 요약
+
+| 기술 | 설명 | 장점 | 단점 |
+| --- | --- | --- | --- |
+| **JDBC** | DB와 연결 및 작업을 위한 표준 인터페이스 | 표준화된 API 제공 | 반복되는 작업 많음, SQL 작성 필요 |
+| **SQL Mapper** | SQL 관리와 JDBC 작업을 간소화한 기술 | Connection 관리 간소화, 코드 간결화 | SQL 직접 작성 필요 |
+| **ORM** | 객체와 DB 테이블을 매핑하여 작업 | SQL 없이 객체 중심 데이터 처리 가능 | 학습 비용 높음, 복잡한 쿼리에서 SQL 필요 |
+| **DriverManager** | DB 드라이버를 관리하고 적절한 드라이버로 연결 시도 | 여러 드라이버를 일관성 있게 관리 가능 | 단일 Connection 생성 방식만 지원 |
+| **Connection Pool** | 미리 Connection을 생성해 재사용하여 성능 향상 | 성능 최적화 | Pool 관리 비용 |
+| **DataSource** | Connection 생성 방식을 추상화 | Connection Pool과 유연한 통합 가능 | 구현체에 따라 추가 설정 필요 |
