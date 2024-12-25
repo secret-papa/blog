@@ -1,0 +1,33 @@
+---
+title: "RestController vs Controller"
+description: "Spring의 RestController annotation과 Controller annotation의 차이에 대해 설명합니다."
+category: "spring"
+cover: images/thumbnail/spring.png
+coverAlt: "RestController vs Controller"
+datePublished: "2024-12-25"
+dateModified: "2024-12-25"
+tags:
+  - spring
+  - annotation
+---
+
+Spring Boot에서 `@RestController`와 `@Controller`는 둘 다 HTTP 요청을 처리하는 컨트롤러를 정의하는 애노테이션입니다. 그러나 이 두 애노테이션은 사용 목적과 동작 방식에서 차이가 있습니다.
+
+### `@Controller`
+
+- `@Controller`는 일반적인 Spring MVC 컨트롤러로, 주로 뷰 템플릿을 반환하는 데 사용됩니다.
+- `@Controller`는 메서드에서 반환된 값을 뷰 이름으로 해석하여 HTML 페이지를 반환합니다. 예를 들어, JSP, Thymeleaf 등의 뷰 템플릿을 처리할 때 사용됩니다.
+- `@Controller`는 기본적으로 데이터를 반환할 때 `ModelAndView` 객체를 사용하거나, `@ResponseBody`와 함께 사용해야 데이터를 JSON 형식으로 반환할 수 있습니다.
+
+### `@RestController`
+
+- `@RestController`는 `@Controller`와 `@ResponseBody`가 결합된 형태로, 주로 RESTful API를 만들 때 사용됩니다.
+- `@RestController`는 메서드의 반환값을 HTTP 응답 본문에 직접 매핑합니다. 즉, 자동으로 `@ResponseBody`가 적용되어 데이터가 JSON, XML 등의 형식으로 반환됩니다.
+- `@RestController`는 주로 클라이언트와의 데이터 통신을 위한 API 서버에서 사용됩니다.
+
+### 차이점
+
+- `@Controller`: 뷰를 반환하는 데 사용되며, HTML 페이지를 처리하고, `@ResponseBody`가 없으면 뷰 이름을 반환합니다.
+- `@RestController`: 데이터를 반환하는 데 사용되며, 자동으로 JSON, XML 등의 형식으로 응답 본문을 반환합니다. 주로 RESTful API에 사용됩니다.
+
+따라서, RESTful API를 개발할 때는 `@RestController`를 사용하는 것이 적합하고, 웹 애플리케이션에서 뷰를 렌더링할 때는 `@Controller`를 사용하는 것이 적합합니다.
